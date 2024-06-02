@@ -1,0 +1,480 @@
+Claro! Podemos integrar o Tailwind CSS ao projeto e personalizar as cores para corresponder à paleta rosa pastel, preto e branco. Vamos ajustar a configuração do Tailwind CSS e estilizar os componentes de acordo com essa paleta de cores.
+Passo 1: Configurando o Tailwind CSS
+
+    Instalação do Tailwind CSS
+
+    Primeiro, instale o Tailwind CSS e suas dependências:
+
+    bash
+
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+Configuração do Tailwind CSS
+
+Abra o arquivo tailwind.config.js e personalize a paleta de cores:
+
+js
+
+// tailwind.config.js
+module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        'pastel-pink': '#FFC0CB',
+        'black': '#000000',
+        'white': '#FFFFFF',
+      },
+    },
+  },
+  plugins: [],
+}
+
+Configuração do arquivo CSS
+
+Abra o arquivo src/index.css e adicione as diretivas do Tailwind CSS:
+
+css
+
+    /* src/index.css */
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+Passo 2: Estilizando os Componentes com Tailwind CSS
+
+Vamos agora estilizar os componentes utilizando a paleta de cores especificada.
+
+    Componente de Login (Login.js)
+
+    jsx
+
+// src/components/Login.js
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const Login = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:7778/api/users/login', { email, password });
+            console.log(response.data);
+            // Salve o token no localStorage e redirecione o usuário
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    return (
+        <div className="flex justify-center items-center min-h-screen bg-pastel-pink">
+            <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
+                <h2 className="text-2xl font-bold mb-4 text-black">Login</h2>
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                />
+                <input
+                    type="password"
+                    placeholder="Senha"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                />
+                <button type="submit" className="bg-black text-white py-2 px-4 rounded w-full">Login</button>
+            </form>
+        </div>
+    );
+};
+
+export default Login;
+
+Componente de Cadastro de Usuários (RegisterUser.js)
+
+jsx
+
+// src/components/RegisterUser.js
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const RegisterUser = () => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:7778/api/users/register', { name, email, password });
+            console.log(response.data);
+            // Redirecione ou mostre mensagem de sucesso
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    return (
+        <div className="flex justify-center items-center min-h-screen bg-pastel-pink">
+            <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
+                <h2 className="text-2xl font-bold mb-4 text-black">Cadastro de Usuário</h2>
+                <input
+                    type="text"
+                    placeholder="Nome"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                />
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                />
+                <input
+                    type="password"
+                    placeholder="Senha"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                />
+                <button type="submit" className="bg-black text-white py-2 px-4 rounded w-full">Cadastrar</button>
+            </form>
+        </div>
+    );
+};
+
+export default RegisterUser;
+
+Componente de Cadastro de Clientes (RegisterClient.js)
+
+jsx
+
+// src/components/RegisterClient.js
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const RegisterClient = () => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:7778/api/clients', { name, email });
+            console.log(response.data);
+            // Redirecione ou mostre mensagem de sucesso
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    return (
+        <div className="flex justify-center items-center min-h-screen bg-pastel-pink">
+            <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
+                <h2 className="text-2xl font-bold mb-4 text-black">Cadastro de Cliente</h2>
+                <input
+                    type="text"
+                    placeholder="Nome"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                />
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                />
+                <button type="submit" className="bg-black text-white py-2 px-4 rounded w-full">Cadastrar</button>
+            </form>
+        </div>
+    );
+};
+
+export default RegisterClient;
+
+Componente de Cadastro de Compras (RegisterPurchase.js)
+
+jsx
+
+// src/components/RegisterPurchase.js
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const RegisterPurchase = () => {
+    const [clientId, setClientId] = useState('');
+    const [product, setProduct] = useState('');
+    const [amount, setAmount] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:7778/api/purchases', { clientId, product, amount });
+            console.log(response.data);
+            // Redirecione ou mostre mensagem de sucesso
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    return (
+        <div className="flex justify-center items-center min-h-screen bg-pastel-pink">
+            <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
+                <h2 className="text-2xl font-bold mb-4 text-black">Cadastro de Compra</h2>
+                <input
+                    type="text"
+                    placeholder="ID do Cliente"
+                    value={clientId}
+                    onChange={(e) => setClientId(e.target.value)}
+                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                />
+                <input
+                    type="text"
+                    placeholder="Produto"
+                    value={product}
+                    onChange={(e) => setProduct(e.target.value)}
+                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                />
+                <input
+                    type="number"
+                    placeholder="Quantidade"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                />
+                <button type="submit" className="bg-black text-white py-2 px-4 rounded w-full">Cadastrar</button>
+            </form>
+        </div>
+    );
+};
+
+export default RegisterPurchase;
+
+Componente de Lista de Clientes (ClientList.js)
+
+jsx
+
+    // src/components/ClientList.js
+    import React, { useEffect, useState } from 'react';
+    import axios from 'axios';
+
+    const ClientList = ({ status }) => {
+        const [clients, setClients] = useState([]);
+
+        useEffect(() => {
+            const fetchClients = async () => {
+                try {
+                    const response = await axios.get(`http://localhost:7778/api/clients?status=${status}`);
+                    setClients(response.data);
+                } catch (error) {
+                    console.error(error);
+                }
+            };
+            fetchClients();
+        }, [status]);
+
+        return (
+            <div className="flex justify-center items-center min-h-screen bg-pastel-pink">
+                <div className="bg-white p-6 rounded shadow-md w-full max-w-md">
+                    <h2 className="text-2xl font-bold mb-4 text-black">
+                        Lista de Clientes {status === 'inadimplente' ? 'Inadimplentes' : 'Que Pagam Correto'}
+                    </h2>
+                    <ul className="list-disc pl-5">
+                        {clients.map((client) => (
+                            <li key={client._id} className="mb-2 text-black">
+                                {client.name}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        );
+    };
+
+    export default ClientList;
+
+Passo 3: Configurando as Páginas
+
+    Página de Login (LoginPage.js)
+
+    jsx
+
+// src/pages/LoginPage.js
+import React from 'react';
+import Login from '../components/Login';
+
+const LoginPage = () => {
+    return (
+        <div>
+            <Login />
+        </div>
+    );
+};
+
+export default LoginPage;
+
+Página de Cadastro de Usuário (RegisterUserPage.js)
+
+jsx
+
+// src/pages/RegisterUserPage.js
+import React from 'react';
+import RegisterUser from '../components/RegisterUser';
+
+const RegisterUserPage = () => {
+    return (
+        <div>
+            <RegisterUser />
+        </div>
+    );
+};
+
+export default RegisterUserPage;
+
+Página de Cadastro de Clientes (RegisterClientPage.js)
+
+jsx
+
+// src/pages/RegisterClientPage.js
+import React from 'react';
+import RegisterClient from '../components/RegisterClient';
+
+const RegisterClientPage = () => {
+    return (
+        <div>
+            <RegisterClient />
+        </div>
+    );
+};
+
+export default RegisterClientPage;
+
+Página de Cadastro de Compras (RegisterPurchasePage.js)
+
+jsx
+
+// src/pages/RegisterPurchasePage.js
+import React from 'react';
+import RegisterPurchase from '../components/RegisterPurchase';
+
+const RegisterPurchasePage = () => {
+    return (
+        <div>
+            <RegisterPurchase />
+        </div>
+    );
+};
+
+export default RegisterPurchasePage;
+
+Página de Lista de Clientes (ClientListPage.js)
+
+jsx
+
+    // src/pages/ClientListPage.js
+    import React from 'react';
+    import ClientList from '../components/ClientList';
+
+    const ClientListPage = ({ status }) => {
+        return (
+            <div>
+                <ClientList status={status} />
+            </div>
+        );
+    };
+
+    export default ClientListPage;
+
+Passo 4: Configurando o Roteamento no App.js
+
+    Configuração do Roteamento (App.js)
+
+    jsx
+
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import RegisterUserPage from './pages/RegisterUserPage';
+import RegisterClientPage from './pages/RegisterClientPage';
+import RegisterPurchasePage from './pages/RegisterPurchasePage';
+import ClientListPage from './pages/ClientListPage';
+import NavBar from './components/NavBar';
+
+function App() {
+    return (
+        <Router>
+            <div>
+                <NavBar />
+                <Switch>
+                    <Route path="/login" component={LoginPage} />
+                    <Route path="/register-user" component={RegisterUserPage} />
+                    <Route path="/register-client" component={RegisterClientPage} />
+                    <Route path="/register-purchase" component={RegisterPurchasePage} />
+                    <Route path="/clients-inadimplentes" render={() => <ClientListPage status="inadimplente" />} />
+                    <Route path="/clients-adimplentes" render={() => <ClientListPage status="adimplente" />} />
+                </Switch>
+            </div>
+        </Router>
+    );
+}
+
+export default App;
+
+Barra de Navegação (NavBar.js)
+
+jsx
+
+    // src/components/NavBar.js
+    import React from 'react';
+    import { Link } from 'react-router-dom';
+
+    const NavBar = () => {
+        return (
+            <nav className="bg-black p-4">
+                <ul className="flex space-x-4">
+                    <li>
+                        <Link to="/login" className="text-white">Login</Link>
+                    </li>
+                    <li>
+                        <Link to="/register-user" className="text-white">Cadastro de Usuário</Link>
+                    </li>
+                    <li>
+                        <Link to="/register-client" className="text-white">Cadastro de Cliente</Link>
+                    </li>
+                    <li>
+                        <Link to="/register-purchase" className="text-white">Cadastro de Compra</Link>
+                    </li>
+                    <li>
+                        <Link to="/clients-inadimplentes" className="text-white">Clientes Inadimplentes</Link>
+                    </li>
+                    <li>
+                        <Link to="/clients-adimplentes" className="text-white">Clientes Adimplentes</Link>
+                    </li>
+                </ul>
+            </nav>
+        );
+    };
+
+    export default NavBar;
+
+Passo 5: Iniciando o Projeto
+
+Agora, para iniciar o projeto, execute:
+
+bash
+
+npm run dev
+
+Seu projeto estará rodando com Vite e Tailwind CSS, estilizado com a paleta de cores especificada para a loja de roupas femininas Zoe Fashion Store.
