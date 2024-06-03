@@ -10,7 +10,7 @@ const RegisterUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:7778/api/users/register', { name, email, password });
+            const response = await axios.post('https://zoe-be.onrender.com/api/users/register', { name, email, password });
             console.log(response.data);
             // Redirecione ou mostre mensagem de sucesso
         } catch (error) {

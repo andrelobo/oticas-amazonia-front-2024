@@ -10,7 +10,7 @@ const RegisterPurchase = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:7778/api/purchases', { clientId, product, amount });
+            const response = await axios.post('https://zoe-be.onrender.com/api/purchases', { clientId, product, amount });
             console.log(response.data);
             // Redirecione ou mostre mensagem de sucesso
         } catch (error) {

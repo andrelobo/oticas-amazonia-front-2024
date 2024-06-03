@@ -10,7 +10,7 @@ const RegisterClient = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:7778/api/clients', {
+            const response = await axios.post('https://zoe-be.onrender.com/api/clients', {
                 name,
                 email,
                 phone

@@ -11,7 +11,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:7778/api/users/login', { email, password });
+            const response = await axios.post('https://zoe-be.onrender.com/api/users/login', { email, password });
             console.log('Resposta da API:', response.data);
 
             // Verifique se a resposta contém o accessToken

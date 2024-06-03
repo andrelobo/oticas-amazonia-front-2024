@@ -12,7 +12,7 @@ const ClientList = () => {
         const fetchClients = async () => {
             const token = localStorage.getItem('token'); // Supondo que o token está armazenado no localStorage
             try {
-                const response = await axios.get('http://localhost:7778/api/clients', {
+                const response = await axios.get('https://zoe-be.onrender.com/api/clients', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

@@ -14,10 +14,15 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  TextField
+  TextField,
+  Select,
+  MenuItem
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { pink, purple } from '@mui/material/colors';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { pink, grey } from '@mui/material/colors';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const ClientListAll = () => {
   const [clients, setClients] = useState([]);
@@ -26,13 +31,16 @@ const ClientListAll = () => {
   const [open, setOpen] = useState(false);
   const [currentClient, setCurrentClient] = useState(null);
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   useEffect(() => {
     const fetchClients = async () => {
       setLoading(true);
       setError(null);
 
       try {
-        const response = await fetch('http://localhost:7778/api/clients');
+        const response = await fetch('https://zoe-be.onrender.com/api/clients');
         if (!response.ok) {
           throw new Error('Erro ao buscar os clientes');
         }
@@ -51,7 +59,7 @@ const ClientListAll = () => {
   }, []);
 
   const handleEditClick = (client) => {
-    setCurrentClient(client);
+    setCurrentClient({ ...client });
     setOpen(true);
   };
 
@@ -60,10 +68,47 @@ const ClientListAll = () => {
     setCurrentClient(null);
   };
 
-  const handleSave = () => {
-    // Lógica para salvar as alterações do cliente
-    setOpen(false);
-    setCurrentClient(null);
+  const handleSave = async () => {
+    try {
+      console.log('Dados enviados:', currentClient); // Log dos dados enviados
+      const response = await fetch(`https://zoe-be.onrender.com/api/clients/${currentClient._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(currentClient),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Erro ao atualizar o cliente: ${errorData.message}`);
+      }
+
+      const updatedClient = await response.json();
+      setClients(clients.map(client => (client._id === updatedClient._id ? updatedClient : client)));
+      setOpen(false);
+      setCurrentClient(null);
+    } catch (error) {
+      console.error('Erro ao salvar:', error);
+      setError(error.message);
+    }
+  };
+
+  const handleDelete = async (clientId) => {
+    try {
+      const response = await fetch(`https://zoe-be.onrender.com/api/clients/${clientId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao deletar o cliente');
+      }
+
+      setClients(clients.filter(client => client._id !== clientId));
+    } catch (error) {
+      console.error('Erro ao deletar:', error);
+      setError(error.message);
+    }
   };
 
   if (loading) {
@@ -90,27 +135,46 @@ const ClientListAll = () => {
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
-            <TableRow sx={{ backgroundColor: pink[100] }}>
-              <TableCell sx={{ color: pink[900], fontWeight: 'bold' }}>Nome</TableCell>
-              <TableCell sx={{ color: pink[900], fontWeight: 'bold' }}>Email</TableCell>
-              <TableCell sx={{ color: pink[900], fontWeight: 'bold' }}>Status da Compra</TableCell>
-              <TableCell sx={{ color: pink[900], fontWeight: 'bold' }}>Ações</TableCell>
+            <TableRow sx={{ backgroundColor: grey[200] }}>
+              <TableCell sx={{ color: grey[900], fontWeight: 'bold' }}>Nome</TableCell>
+              <TableCell sx={{ color: grey[900], fontWeight: 'bold' }}>Email</TableCell>
+              <TableCell sx={{ color: grey[900], fontWeight: 'bold' }}>Status da Compra</TableCell>
+              <TableCell sx={{ color: grey[900], fontWeight: 'bold' }}>Ações</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {clients.map(client => (
-              <TableRow key={client._id} sx={{ '&:nth-of-type(odd)': { backgroundColor: pink[50] } }}>
+              <TableRow key={client._id} sx={{ '&:nth-of-type(odd)': { backgroundColor: grey[100] } }}>
                 <TableCell>{client.name}</TableCell>
                 <TableCell>{client.email}</TableCell>
                 <TableCell>{client.purchaseStatus ? 'Pago' : 'Não Pago'}</TableCell>
                 <TableCell>
                   <Button
                     variant="contained"
-                    sx={{ backgroundColor: pink[500], color: 'white', '&:hover': { backgroundColor: pink[700] } }}
+                    size={isMobile ? "small" : "medium"}
+                    sx={{
+                      backgroundColor: pink[500],
+                      color: 'white',
+                      '&:hover': { backgroundColor: pink[700] },
+                      mr: 1
+                    }}
                     startIcon={<EditIcon />}
                     onClick={() => handleEditClick(client)}
                   >
                     Editar
+                  </Button>
+                  <Button
+                    variant="contained"
+                    size={isMobile ? "small" : "medium"}
+                    sx={{
+                      backgroundColor: grey[500],
+                      color: 'white',
+                      '&:hover': { backgroundColor: grey[700] }
+                    }}
+                    startIcon={<DeleteIcon />}
+                    onClick={() => handleDelete(client._id)}
+                  >
+                    Deletar
                   </Button>
                 </TableCell>
               </TableRow>
@@ -120,7 +184,7 @@ const ClientListAll = () => {
       </TableContainer>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle sx={{ backgroundColor: pink[100], color: pink[900] }}>Editar Cliente</DialogTitle>
+        <DialogTitle sx={{ backgroundColor: grey[200], color: grey[900] }}>Editar Cliente</DialogTitle>
         <DialogContent>
           {currentClient && (
             <>
@@ -151,15 +215,24 @@ const ClientListAll = () => {
                 onChange={(e) => setCurrentClient({ ...currentClient, phone: e.target.value })}
                 sx={{ marginBottom: 2 }}
               />
-              {/* Adicione outros campos conforme necessário */}
+              <Select
+                label="Status da Compra"
+                fullWidth
+                value={currentClient.purchaseStatus}
+                onChange={(e) => setCurrentClient({ ...currentClient, purchaseStatus: e.target.value })}
+                sx={{ marginBottom: 2 }}
+              >
+                <MenuItem value={true}>Pago</MenuItem>
+                <MenuItem value={false}>Não Pago</MenuItem>
+              </Select>
             </>
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} sx={{ color: pink[900] }}>
+          <Button onClick={handleClose} sx={{ color: grey[900] }}>
             Cancelar
           </Button>
-          <Button onClick={handleSave} sx={{ color: pink[900] }}>
+          <Button onClick={handleSave} sx={{ color: grey[900] }}>
             Salvar
           </Button>
         </DialogActions>
