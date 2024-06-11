@@ -1,8 +1,8 @@
 // src/components/NavBar.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import logo from '../assets/logozoe2.png'; // Certifique-se de colocar o caminho correto para a imagem
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,9 +12,12 @@ const NavBar = () => {
     };
 
     return (
-        <nav className="bg-black p-4">
+        <nav className="bg-[#d957a9] p-4">
             <div className="container mx-auto flex justify-between items-center">
-                <div className="text-white text-xl font-bold">Zoe Fashion Store</div>
+                <div className="flex items-center space-x-2">
+                    <img src={logo} alt="Logo Zoe Fashion Store" className="w-48 h-auto" />
+                    
+                </div>
                 <div className="hidden md:flex space-x-4">
                     <Link to="/login" className="text-white">Login</Link>
                     <Link to="/register-user" className="text-white">Cadastro de Usuário</Link>
@@ -22,6 +25,7 @@ const NavBar = () => {
                     <Link to="/register-purchase" className="text-white">Cadastro de Compra</Link>
                     <Link to="/clients-inadimplentes" className="text-white">Clientes Inadimplentes</Link>
                     <Link to="/clients-adimplentes" className="text-white">Clientes Adimplentes</Link>
+                    <Link to="/client-list" className="text-white">Lista de Clientes</Link> {/* Novo Link */}
                 </div>
                 <div className="md:hidden flex items-center">
                     <button onClick={toggleMenu} className="text-white focus:outline-none">
@@ -42,6 +46,7 @@ const NavBar = () => {
                         <Link to="/register-purchase" className="text-white" onClick={toggleMenu}>Cadastro de Compra</Link>
                         <Link to="/clients-inadimplentes" className="text-white" onClick={toggleMenu}>Clientes Inadimplentes</Link>
                         <Link to="/clients-adimplentes" className="text-white" onClick={toggleMenu}>Clientes Adimplentes</Link>
+                        <Link to="/client-list" className="text-white" onClick={toggleMenu}>Lista de Clientes</Link> {/* Novo Link */}
                     </div>
                 </div>
             )}

@@ -33,7 +33,7 @@ const ClientList = () => {
 
     return (
         <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Lista de Clientes</h1>
+            <h1 className="text-2xl font-bold mb-4">Clientes</h1>
             <table className="min-w-full bg-white border border-gray-200">
                 <thead>
                     <tr>

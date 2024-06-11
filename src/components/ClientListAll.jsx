@@ -1,54 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Container,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField,
-  Select,
-  MenuItem
-} from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { pink, grey } from '@mui/material/colors';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import React, { useEffect, useState } from 'react';
+import ClientCard from './ClientCard';
+import EditClientCard from './EditClientCard';
+import { Container, Typography, Button } from '@mui/material';
+import AddClientCard from './AddClientCard';
 
 const ClientListAll = () => {
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [currentClient, setCurrentClient] = useState(null);
-
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [editingClient, setEditingClient] = useState(null);
+  const [addingClient, setAddingClient] = useState(false);
 
   useEffect(() => {
     const fetchClients = async () => {
-      setLoading(true);
-      setError(null);
-
       try {
         const response = await fetch('https://zoe-be.onrender.com/api/clients');
         if (!response.ok) {
           throw new Error('Erro ao buscar os clientes');
         }
         const data = await response.json();
-        console.log('Dados recebidos:', data); // Log para verificar a resposta da API
-        setClients(data.clients); // Certifique-se de acessar a propriedade correta
+        setClients(data.clients);
       } catch (error) {
-        console.error('Erro:', error); // Log para verificar erros
         setError(error.message);
       } finally {
         setLoading(false);
@@ -58,187 +30,111 @@ const ClientListAll = () => {
     fetchClients();
   }, []);
 
-  const handleEditClick = (client) => {
-    setCurrentClient({ ...client });
-    setOpen(true);
+  const handleEdit = (client) => {
+    setEditingClient(client);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-    setCurrentClient(null);
-  };
-
-  const handleSave = async () => {
+  const handleDelete = async (id) => {
     try {
-      console.log('Dados enviados:', currentClient); // Log dos dados enviados
-      const response = await fetch(`https://zoe-be.onrender.com/api/clients/${currentClient._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(currentClient),
+      const response = await fetch(`https://zoe-be.onrender.com/api/clients/${id}`, {
+        method: 'DELETE'
       });
-
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Erro ao atualizar o cliente: ${errorData.message}`);
+        throw new Error('Erro ao deletar o cliente');
       }
-
-      const updatedClient = await response.json();
-      setClients(clients.map(client => (client._id === updatedClient._id ? updatedClient : client)));
-      setOpen(false);
-      setCurrentClient(null);
+      setClients(clients.filter(client => client._id !== id));
     } catch (error) {
-      console.error('Erro ao salvar:', error);
       setError(error.message);
     }
   };
 
-  const handleDelete = async (clientId) => {
+  const handleSave = async (updatedClient) => {
     try {
-      const response = await fetch(`https://zoe-be.onrender.com/api/clients/${clientId}`, {
-        method: 'DELETE',
+      const response = await fetch(`https://zoe-be.onrender.com/api/clients/${updatedClient._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedClient)
       });
-
       if (!response.ok) {
-        throw new Error('Erro ao deletar o cliente');
+        throw new Error('Erro ao atualizar o cliente');
       }
-
-      setClients(clients.filter(client => client._id !== clientId));
+      const updatedData = await response.json();
+      setClients(clients.map(client => client._id === updatedData._id ? updatedData : client));
+      setEditingClient(null);
     } catch (error) {
-      console.error('Erro ao deletar:', error);
+      setError(error.message);
+    }
+  };
+
+  const handleAdd = async (newClient) => {
+    try {
+      const response = await fetch('https://zoe-be.onrender.com/api/clients', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newClient)
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Erro ao adicionar o cliente');
+      }
+      const addedClient = await response.json();
+      setClients([...clients, addedClient]);
+      setAddingClient(false);
+    } catch (error) {
       setError(error.message);
     }
   };
 
   if (loading) {
-    return (
-      <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <Typography variant="h6" component="div">Carregando...</Typography>
-      </Container>
-    );
+    return <Typography className="text-center text-gray-700">Carregando...</Typography>;
   }
 
   if (error) {
-    return (
-      <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <Typography variant="h6" component="div" color="error">{error}</Typography>
-      </Container>
-    );
+    return <Typography className="text-center text-red-600">{error}</Typography>;
+  }
+
+  if (!clients || !clients.length) {
+    return <Typography className="text-center text-gray-700">Não há clientes cadastrados.</Typography>;
   }
 
   return (
     <Container sx={{ py: 5 }}>
-      <Typography variant="h4" component="h1" gutterBottom align="center" sx={{ color: pink[500], fontWeight: 'bold' }}>
-        Lista de Clientes
+      <Typography variant="h4" component="h1" gutterBottom align="center" sx={{ color: '#d957a9', fontWeight: 'bold' }}>
+        Clientes
       </Typography>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow sx={{ backgroundColor: grey[200] }}>
-              <TableCell sx={{ color: grey[900], fontWeight: 'bold' }}>Nome</TableCell>
-              <TableCell sx={{ color: grey[900], fontWeight: 'bold' }}>Email</TableCell>
-              <TableCell sx={{ color: grey[900], fontWeight: 'bold' }}>Status da Compra</TableCell>
-              <TableCell sx={{ color: grey[900], fontWeight: 'bold' }}>Ações</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {clients.map(client => (
-              <TableRow key={client._id} sx={{ '&:nth-of-type(odd)': { backgroundColor: grey[100] } }}>
-                <TableCell>{client.name}</TableCell>
-                <TableCell>{client.email}</TableCell>
-                <TableCell>{client.purchaseStatus ? 'Pago' : 'Não Pago'}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="contained"
-                    size={isMobile ? "small" : "medium"}
-                    sx={{
-                      backgroundColor: pink[500],
-                      color: 'white',
-                      '&:hover': { backgroundColor: pink[700] },
-                      mr: 1
-                    }}
-                    startIcon={<EditIcon />}
-                    onClick={() => handleEditClick(client)}
-                  >
-                    Editar
-                  </Button>
-                  <Button
-                    variant="contained"
-                    size={isMobile ? "small" : "medium"}
-                    sx={{
-                      backgroundColor: grey[500],
-                      color: 'white',
-                      '&:hover': { backgroundColor: grey[700] }
-                    }}
-                    startIcon={<DeleteIcon />}
-                    onClick={() => handleDelete(client._id)}
-                  >
-                    Deletar
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle sx={{ backgroundColor: grey[200], color: grey[900] }}>Editar Cliente</DialogTitle>
-        <DialogContent>
-          {currentClient && (
-            <>
-              <TextField
-                margin="dense"
-                label="Nome"
-                type="text"
-                fullWidth
-                value={currentClient.name}
-                onChange={(e) => setCurrentClient({ ...currentClient, name: e.target.value })}
-                sx={{ marginBottom: 2 }}
-              />
-              <TextField
-                margin="dense"
-                label="Email"
-                type="email"
-                fullWidth
-                value={currentClient.email}
-                onChange={(e) => setCurrentClient({ ...currentClient, email: e.target.value })}
-                sx={{ marginBottom: 2 }}
-              />
-              <TextField
-                margin="dense"
-                label="Telefone"
-                type="text"
-                fullWidth
-                value={currentClient.phone}
-                onChange={(e) => setCurrentClient({ ...currentClient, phone: e.target.value })}
-                sx={{ marginBottom: 2 }}
-              />
-              <Select
-                label="Status da Compra"
-                fullWidth
-                value={currentClient.purchaseStatus}
-                onChange={(e) => setCurrentClient({ ...currentClient, purchaseStatus: e.target.value })}
-                sx={{ marginBottom: 2 }}
-              >
-                <MenuItem value={true}>Pago</MenuItem>
-                <MenuItem value={false}>Não Pago</MenuItem>
-              </Select>
-            </>
-          )}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} sx={{ color: grey[900] }}>
-            Cancelar
-          </Button>
-          <Button onClick={handleSave} sx={{ color: grey[900] }}>
-            Salvar
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <Button variant="contained" sx={{ backgroundColor: '#d957a9', color: 'white', marginBottom: 2 }} onClick={() => setAddingClient(true)}>
+        Adicionar Cliente
+      </Button>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl px-4">
+        {clients.map(client => (
+          <ClientCard
+            key={client._id}
+            client={client}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        ))}
+      </div>
+      {editingClient && (
+        <EditClientCard
+          client={editingClient}
+          onSave={handleSave}
+          onCancel={() => setEditingClient(null)}
+        />
+      )}
+      {addingClient && (
+        <AddClientCard
+          onSave={handleAdd}
+          onCancel={() => setAddingClient(false)}
+        />
+      )}
     </Container>
   );
 };
 
 export default ClientListAll;
+
