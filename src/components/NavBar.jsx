@@ -20,11 +20,10 @@ const NavBar = () => {
                 </div>
                 <div className="hidden md:flex space-x-4">
                     <Link to="/login" className="text-white">Login</Link>
-                    <Link to="/register-user" className="text-white">Cadastro de Usuário</Link>
+                    <Link to="/register-user" className="text-white">Registro</Link>
                     <Link to="/register-client" className="text-white">Cadastro de Cliente</Link>
-                    <Link to="/register-purchase" className="text-white">Cadastro de Compra</Link>
-                    <Link to="/clients-inadimplentes" className="text-white">Clientes Inadimplentes</Link>
-                    <Link to="/clients-adimplentes" className="text-white">Clientes Adimplentes</Link>
+                    <Link to="/register-purchase" className="text-white">Cadastro de Compras</Link>
+                    
                     <Link to="/client-list" className="text-white">Lista de Clientes</Link> {/* Novo Link */}
                 </div>
                 <div className="md:hidden flex items-center">
