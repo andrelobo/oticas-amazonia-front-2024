@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import { format, parseISO } from 'date-fns';
 
 const RegisterPurchase = () => {
     const [clientId, setClientId] = useState('');
@@ -13,6 +12,7 @@ const RegisterPurchase = () => {
     const [totalAmount, setTotalAmount] = useState('');
     const [purchaseStatus, setPurchaseStatus] = useState(false);
     const [purchaseDate, setPurchaseDate] = useState(new Date());
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchClients = async () => {
@@ -45,9 +45,17 @@ const RegisterPurchase = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError(null);
+
+        // Validação dos campos
+        if (!clientId || !details || !totalAmount || !purchaseDate) {
+            setError('Todos os campos são obrigatórios');
+            return;
+        }
+
         try {
             const response = await axios.post('https://zoe-be.onrender.com/api/purchases', {
-                client: clientId,
+                clientId,
                 details,
                 totalAmount: parseFloat(totalAmount),
                 purchaseDate: purchaseDate.toISOString(),
@@ -56,7 +64,13 @@ const RegisterPurchase = () => {
             console.log(response.data);
             // Redirecione ou mostre mensagem de sucesso
         } catch (error) {
-            console.error(error);
+            if (error.response) {
+                console.error('Erro na resposta:', error.response.data);
+                setError(error.response.data.message || 'Erro ao cadastrar compra');
+            } else {
+                console.error('Erro na solicitação:', error);
+                setError('Erro ao cadastrar compra');
+            }
         }
     };
 
@@ -113,6 +127,7 @@ const RegisterPurchase = () => {
                     />
                     Status de Pagamento
                 </label>
+                {error && <p className="text-red-600 mb-4">{error}</p>}
                 <button type="submit" className="bg-black text-white py-2 px-4 rounded w-full">Cadastrar</button>
             </form>
         </div>
