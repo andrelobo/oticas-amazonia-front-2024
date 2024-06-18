@@ -1,65 +1,57 @@
-// src/components/ClientList.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const ClientList = () => {
-    const [clients, setClients] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [clients, setClients] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        // Função para obter dados dos clientes
-        const fetchClients = async () => {
-            const token = localStorage.getItem('token'); // Supondo que o token está armazenado no localStorage
-            try {
-                const response = await axios.get('https://zoe-be.onrender.com/api/clients', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                setClients(response.data);
-                setLoading(false);
-            } catch (err) {
-                setError(err);
-                setLoading(false);
-            }
-        };
+  useEffect(() => {
+    const fetchClients = async () => {
+      try {
+        const response = await axios.get('https://zoe-be.onrender.com/api/clients');
+        setClients(response.data.clients);
+      } catch (error) {
+        setError('Erro ao buscar os clientes');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-        fetchClients();
-    }, []);
+    fetchClients();
+  }, []);
 
-    if (loading) return <div>Carregando...</div>;
-    if (error) return <div>Erro ao carregar clientes: {error.message}</div>;
+  if (loading) {
+    return <p className="text-center text-gray-700">Carregando...</p>;
+  }
 
-    return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Clientes</h1>
-            <table className="min-w-full bg-white border border-gray-200">
-                <thead>
-                    <tr>
-                        <th className="py-2 px-4 border-b">Nome</th>
-                        <th className="py-2 px-4 border-b">Email</th>
-                        <th className="py-2 px-4 border-b">Status da Compra</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {clients.map((client) => (
-                        <tr key={client._id}>
-                            <td className="py-2 px-4 border-b">{client.name}</td>
-                            <td className="py-2 px-4 border-b">{client.email}</td>
-                            <td className="py-2 px-4 border-b">
-                                {client.purchaseStatus ? (
-                                    <span className="text-green-600">Compra Paga</span>
-                                ) : (
-                                    <span className="text-red-600">Compra Não Paga</span>
-                                )}
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
+  if (error) {
+    return <p className="text-center text-red-600">{error}</p>;
+  }
+
+  return (
+    <div className="min-h-screen bg-pastel-pink py-10">
+      <div className="container mx-auto px-4">
+        <h1 className="text-3xl font-semibold text-black mb-8">Lista de Clientes</h1>
+        <ul className="space-y-4">
+          {clients.map(client => (
+            <li key={client._id} className="bg-white p-6 rounded-lg shadow-lg flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-semibold text-black">{client.name}</h2>
+                <p className="text-black"><strong>Email:</strong> {client.email}</p>
+                <p className="text-black"><strong>Telefone:</strong> {client.phone}</p>
+                <p className="text-black"><strong>Número de Compras:</strong> {client.purchaseCount}</p>
+              </div>
+              <Link to={`/clients/${client._id}`} className="text-pastel-pink hover:text-black font-semibold">
+                Ver Detalhes
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
 };
 
 export default ClientList;

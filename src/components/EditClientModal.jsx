@@ -103,7 +103,7 @@ const EditClientModal = ({ client, onSave, onCancel }) => {
             </button>
             <button
               type="submit"
-              className="bg-[#c69f56] text-white px-4 py-2 rounded"
+              className="bg-[#d957a9] text-white px-4 py-2 rounded"
             >
               Salvar
             </button>

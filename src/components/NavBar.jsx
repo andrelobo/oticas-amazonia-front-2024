@@ -43,8 +43,7 @@ const NavBar = () => {
                         <Link to="/register-user" className="text-white" onClick={toggleMenu}>Cadastro de Usuário</Link>
                         <Link to="/register-client" className="text-white" onClick={toggleMenu}>Cadastro de Cliente</Link>
                         <Link to="/register-purchase" className="text-white" onClick={toggleMenu}>Cadastro de Compra</Link>
-                        <Link to="/clients-inadimplentes" className="text-white" onClick={toggleMenu}>Clientes Inadimplentes</Link>
-                        <Link to="/clients-adimplentes" className="text-white" onClick={toggleMenu}>Clientes Adimplentes</Link>
+                        
                         <Link to="/client-list" className="text-white" onClick={toggleMenu}>Lista de Clientes</Link> {/* Novo Link */}
                     </div>
                 </div>
