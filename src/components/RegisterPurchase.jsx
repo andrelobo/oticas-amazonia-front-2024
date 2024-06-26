@@ -3,6 +3,15 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
+const Message = ({ message, onClose }) => (
+    <div className="fixed top-4 right-4 bg-white border border-gray-300 p-4 rounded shadow-md">
+        <p className="text-gray-800">{message}</p>
+        <button onClick={onClose} className="ml-2 text-sm text-gray-600 hover:text-gray-800 focus:outline-none">
+            Fechar
+        </button>
+    </div>
+);
+
 const RegisterPurchase = () => {
     const [clientId, setClientId] = useState('');
     const [clientName, setClientName] = useState('');
@@ -13,6 +22,7 @@ const RegisterPurchase = () => {
     const [purchaseStatus, setPurchaseStatus] = useState(false);
     const [purchaseDate, setPurchaseDate] = useState(new Date());
     const [error, setError] = useState(null);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         const fetchClients = async () => {
@@ -47,7 +57,6 @@ const RegisterPurchase = () => {
         e.preventDefault();
         setError(null);
 
-        // Validação dos campos
         if (!clientId || !details || !totalAmount || !purchaseDate) {
             setError('Todos os campos são obrigatórios');
             return;
@@ -62,7 +71,15 @@ const RegisterPurchase = () => {
                 purchaseStatus
             });
             console.log(response.data);
-            // Redirecione ou mostre mensagem de sucesso
+
+            setClientId('');
+            setClientName('');
+            setDetails('');
+            setTotalAmount('');
+            setPurchaseDate(new Date());
+            setPurchaseStatus(false);
+
+            showMessage('Compra cadastrada com sucesso!');
         } catch (error) {
             if (error.response) {
                 console.error('Erro na resposta:', error.response.data);
@@ -74,9 +91,30 @@ const RegisterPurchase = () => {
         }
     };
 
+    const handleToggleStatus = async () => {
+        const updatedStatus = !purchaseStatus;
+        setPurchaseStatus(updatedStatus);
+
+        try {
+            await axios.put(`https://zoe-be.onrender.com/api/purchases/${clientId}`, {
+                purchaseStatus: updatedStatus
+            });
+            showMessage(`Status da compra atualizado para ${updatedStatus ? 'Pago' : 'Não Pago'}`);
+        } catch (error) {
+            console.error('Erro ao atualizar status da compra:', error);
+            showMessage('Erro ao atualizar status da compra. Tente novamente.', true);
+            setPurchaseStatus(!updatedStatus);
+        }
+    };
+
+    const showMessage = (text) => {
+        setMessage(text);
+        setTimeout(() => setMessage(''), 3000);
+    };
+
     return (
         <div className="flex justify-center items-center min-h-screen bg-pastel-pink">
-            <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
+            <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm relative">
                 <h2 className="text-2xl font-bold mb-4 text-black">Cadastro de Compra</h2>
                 <input
                     type="text"
@@ -118,16 +156,20 @@ const RegisterPurchase = () => {
                     dateFormat="dd/MM/yyyy"
                     className="mb-4 p-2 border border-gray-300 rounded w-full"
                 />
-                <label className="flex items-center mb-4">
+                <label className="flex items-center mb-4 cursor-pointer">
                     <input
                         type="checkbox"
                         checked={purchaseStatus}
-                        onChange={(e) => setPurchaseStatus(e.target.checked)}
+                        onChange={handleToggleStatus}
                         className="mr-2"
                     />
                     Status de Pagamento
                 </label>
+                <div onClick={handleToggleStatus} className={`w-12 h-6 flex items-center rounded-full p-1 cursor-pointer ${purchaseStatus ? 'bg-green-400' : 'bg-red-400'}`}>
+                    <div className={`bg-white w-4 h-4 rounded-full shadow-md transform ${purchaseStatus ? 'translate-x-6' : ''}`}></div>
+                </div>
                 {error && <p className="text-red-600 mb-4">{error}</p>}
+                {message && <Message message={message} onClose={() => setMessage('')} />}
                 <button type="submit" className="bg-black text-white py-2 px-4 rounded w-full">Cadastrar</button>
             </form>
         </div>

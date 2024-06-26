@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import logo from '../assets/logozoe2.png'; // Certifique-se de colocar o caminho correto para a imagem
+import logo from '../assets/logorosangela.png'; // Certifique-se de colocar o caminho correto para a imagem
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +15,7 @@ const NavBar = () => {
         <nav className="bg-[#d957a9] p-4">
             <div className="container mx-auto flex justify-between items-center">
                 <div className="flex items-center space-x-2">
-                    <img src={logo} alt="Logo Zoe Fashion Store" className="w-48 h-auto" />
+                    <img src={logo} alt="Logo Ro0sângela Fashion Store" className="w-48 h-auto" />
                     
                 </div>
                 <div className="hidden md:flex space-x-4">

@@ -9,6 +9,10 @@ module.exports = {
     extend: {
       colors: {
         'pastel-pink': '#FFC0CB',
+        'dark-bg': '#1a1a1a',
+        'dark-card': '#2a2a2a',
+        'dark-text': '#e0e0e0',
+        'pink-highlight': '#ff79c6',
         'black': '#000000',
         'white': '#FFFFFF',
       },
