@@ -23,7 +23,7 @@ const EditClientCard = ({ client, onSave, onCancel }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center">
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-semibold text-pink-400 mb-4">Editar Cliente</h2>
+        <h2 className="text-2xl text-pink-400 mb-4">Editar Cliente</h2>
         <div className="mb-4">
           <label className="block text-gray-300 mb-2">Nome</label>
           <input

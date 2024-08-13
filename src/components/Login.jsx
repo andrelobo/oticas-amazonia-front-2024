@@ -19,8 +19,8 @@ const Login = () => {
 
                 Swal.fire({
                     icon: 'success',
-                    title: 'Login Successful!',
-                    text: 'You have been authenticated successfully.',
+                    title: 'Sucesso ao Logar!',
+                    text: 'Você foi autenticado com sucesso.',
                     timer: 2000,
                     showConfirmButton: false,
                 });
@@ -30,14 +30,14 @@ const Login = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Login Error',
-                    text: 'Access token not received.',
+                    text: 'Token de ACESSO NÃO RECEBIDO.',
                 });
             }
         } catch (error) {
             Swal.fire({
                 icon: 'error',
                 title: 'Login Error',
-                text: error.response?.data?.message || 'An error occurred during login.',
+                text: error.response?.data?.message || 'Um erro ocoreu durante o Login',
             });
         }
     };
@@ -59,7 +59,7 @@ const Login = () => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="password" className="block text-sm font-medium mb-1">Password</label>
+                        <label htmlFor="password" className="block text-sm font-medium mb-1">Senha</label>
                         <input
                             type="password"
                             id="password"
