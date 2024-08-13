@@ -1,20 +1,36 @@
 // src/components/RegisterUser.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const RegisterUser = () => {
-    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://zoe-be.onrender.com/api/users/register', { name, email, password });
+            const response = await axios.post('https://zoe-be.onrender.com/api/users/', { username, email, password });
             console.log(response.data);
-            // Redirecione ou mostre mensagem de sucesso
+
+            // Exibe a mensagem de sucesso com SweetAlert2
+            Swal.fire({
+                title: 'Usuário registrado com sucesso!',
+                text: 'Um e-mail de confirmação foi enviado.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
         } catch (error) {
-            console.error(error);
+            console.error('Erro ao cadastrar:', error);
+
+            // Exibe a mensagem de erro com SweetAlert2
+            Swal.fire({
+                title: 'Erro ao cadastrar',
+                text: error.response.data.error || 'Ocorreu um erro ao tentar registrar o usuário.',
+                icon: 'error',
+                confirmButtonText: 'Tentar novamente'
+            });
         }
     };
 
@@ -24,9 +40,9 @@ const RegisterUser = () => {
                 <h2 className="text-2xl font-bold mb-4 text-black">Cadastro de Usuário</h2>
                 <input
                     type="text"
-                    placeholder="Nome"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Nome de Usuário"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     className="mb-4 p-2 border border-gray-300 rounded w-full"
                 />
                 <input

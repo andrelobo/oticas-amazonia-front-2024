@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // Importando o SweetAlert2
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -14,21 +15,40 @@ const Login = () => {
             const response = await axios.post('https://zoe-be.onrender.com/api/users/login', { email, password });
             console.log('Resposta da API:', response.data);
 
-            // Verifique se a resposta contém o accessToken
             if (response.data.accessToken) {
                 const { accessToken } = response.data;
-
-                // Salve o token no localStorage
                 localStorage.setItem('token', accessToken);
                 console.log('Token armazenado no localStorage:', localStorage.getItem('token'));
 
-                // Redirecione o usuário para a página desejada após o login
+                // Exibe uma notificação de sucesso
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login bem-sucedido!',
+                    text: 'Você foi autenticado com sucesso.',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
+
                 navigate('/client-list');
             } else {
                 console.error('accessToken não recebido na resposta:', response.data);
+
+                // Exibe uma notificação de erro
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro ao fazer login',
+                    text: 'O token de acesso não foi recebido.',
+                });
             }
         } catch (error) {
             console.error('Erro ao fazer login:', error);
+
+            // Exibe uma notificação de erro
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao fazer login',
+                text: 'Verifique suas credenciais e tente novamente.',
+            });
         }
     };
 

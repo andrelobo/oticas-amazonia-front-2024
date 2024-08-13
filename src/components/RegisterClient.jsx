@@ -1,6 +1,7 @@
 // src/components/RegisterClient.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const RegisterClient = () => {
     const [name, setName] = useState('');
@@ -16,9 +17,24 @@ const RegisterClient = () => {
                 phone
             });
             console.log(response.data);
-            // Redirecione ou mostre mensagem de sucesso
+
+            // Exibe a mensagem de sucesso com SweetAlert2
+            Swal.fire({
+                title: 'Cliente registrado com sucesso!',
+                text: 'Os dados foram salvos corretamente.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
         } catch (error) {
-            console.error(error);
+            console.error('Erro ao cadastrar:', error);
+
+            // Exibe a mensagem de erro com SweetAlert2
+            Swal.fire({
+                title: 'Erro ao cadastrar',
+                text: error.response?.data?.error || 'Ocorreu um erro ao tentar registrar o cliente.',
+                icon: 'error',
+                confirmButtonText: 'Tentar novamente'
+            });
         }
     };
 

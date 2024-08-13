@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import logo from '../assets/logorosangela.png'; // Certifique-se de colocar o caminho correto para a imagem
+import logo from '../assets/logo.png'; // Certifique-se de colocar o caminho correto para a imagem
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
