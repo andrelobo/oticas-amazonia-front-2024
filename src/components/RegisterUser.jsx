@@ -1,4 +1,3 @@
-// src/components/RegisterUser.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -35,29 +34,29 @@ const RegisterUser = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-pastel-pink">
-            <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
-                <h2 className="text-2xl font-bold mb-4 text-black">Cadastro de Usuário</h2>
+        <div className="flex justify-center items-center min-h-screen bg-gray-900">
+            <form onSubmit={handleSubmit} className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-sm">
+                <h2 className="text-2xl font-bold mb-4 text-white">Cadastro de Usuário</h2>
                 <input
                     type="text"
                     placeholder="Nome de Usuário"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                    className="mb-4 p-2 border border-gray-700 rounded w-full bg-gray-900 text-white placeholder-gray-400"
                 />
                 <input
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                    className="mb-4 p-2 border border-gray-700 rounded w-full bg-gray-900 text-white placeholder-gray-400"
                 />
                 <input
                     type="password"
                     placeholder="Senha"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                    className="mb-4 p-2 border border-gray-700 rounded w-full bg-gray-900 text-white placeholder-gray-400"
                 />
                 <button type="submit" className="bg-black text-white py-2 px-4 rounded w-full">Cadastrar</button>
             </form>

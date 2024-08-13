@@ -7,6 +7,7 @@ import RegisterClientPage from './pages/RegisterClientPage';
 import RegisterPurchasePage from './pages/RegisterPurchasePage';
 import ClientListAllPage from './pages/ClientListAllPage';
 import ClientDetailsPage from './pages/ClientDetailsPage';
+import './index.css'
 
 function App() {
   return (

@@ -13,7 +13,7 @@ const ClientList = () => {
         const response = await axios.get('https://zoe-be.onrender.com/api/clients');
         setClients(response.data.clients);
       } catch (error) {
-        setError('Erro ao buscar os clientes');
+        setError('Error fetching clients');
       } finally {
         setLoading(false);
       }
@@ -23,28 +23,28 @@ const ClientList = () => {
   }, []);
 
   if (loading) {
-    return <p className="text-center text-gray-700">Carregando...</p>;
+    return <p className="text-center text-gray-400">Loading...</p>;
   }
 
   if (error) {
-    return <p className="text-center text-red-600">{error}</p>;
+    return <p className="text-center text-red-500">{error}</p>;
   }
 
   return (
-    <div className="min-h-screen bg-pastel-pink py-10">
+    <div className="min-h-screen bg-gray-900 py-10">
       <div className="container mx-auto px-4">
-        <h1 className="text-3xl font-semibold text-black mb-8">Lista de Clientes</h1>
+        <h1 className="text-3xl font-semibold text-pink-400 mb-8">Client List</h1>
         <ul className="space-y-4">
           {clients.map(client => (
-            <li key={client._id} className="bg-white p-6 rounded-lg shadow-lg flex items-center justify-between">
+            <li key={client._id} className="bg-gray-800 p-6 rounded-lg shadow-lg flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-semibold text-black">{client.name}</h2>
-                <p className="text-black"><strong>Email:</strong> {client.email}</p>
-                <p className="text-black"><strong>Telefone:</strong> {client.phone}</p>
-                <p className="text-black"><strong>Número de Compras:</strong> {client.purchaseCount}</p>
+                <h2 className="text-2xl font-semibold text-white">{client.name}</h2>
+                <p className="text-gray-300"><strong>Email:</strong> {client.email}</p>
+                <p className="text-gray-300"><strong>Phone:</strong> {client.phone}</p>
+                <p className="text-gray-300"><strong>Number of Purchases:</strong> {client.purchaseCount}</p>
               </div>
-              <Link to={`/clients/${client._id}`} className="text-pastel-pink hover:text-black font-semibold">
-                Ver Detalhes
+              <Link to={`/clients/${client._id}`} className="text-pink-400 hover:text-white font-semibold">
+                View Details
               </Link>
             </li>
           ))}

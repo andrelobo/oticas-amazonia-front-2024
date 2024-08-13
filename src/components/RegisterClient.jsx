@@ -1,4 +1,3 @@
-// src/components/RegisterClient.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -23,7 +22,8 @@ const RegisterClient = () => {
                 title: 'Cliente registrado com sucesso!',
                 text: 'Os dados foram salvos corretamente.',
                 icon: 'success',
-                confirmButtonText: 'OK'
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#d957a9' // Cor personalizada do botão
             });
         } catch (error) {
             console.error('Erro ao cadastrar:', error);
@@ -33,37 +33,43 @@ const RegisterClient = () => {
                 title: 'Erro ao cadastrar',
                 text: error.response?.data?.error || 'Ocorreu um erro ao tentar registrar o cliente.',
                 icon: 'error',
-                confirmButtonText: 'Tentar novamente'
+                confirmButtonText: 'Tentar novamente',
+                confirmButtonColor: '#d957a9' // Cor personalizada do botão
             });
         }
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-pastel-pink">
-            <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
-                <h2 className="text-2xl font-bold mb-4 text-black">Cadastro de Cliente</h2>
+        <div className="flex justify-center items-center min-h-screen bg-gray-900">
+            <form onSubmit={handleSubmit} className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-sm">
+                <h2 className="text-2xl font-bold mb-4 text-pink-400">Cadastro de Cliente</h2>
                 <input
                     type="text"
                     placeholder="Nome"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                    className="mb-4 p-2 border border-gray-600 rounded w-full bg-gray-700 text-white"
                 />
                 <input
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                    className="mb-4 p-2 border border-gray-600 rounded w-full bg-gray-700 text-white"
                 />
                 <input
                     type="text"
                     placeholder="Telefone"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                    className="mb-4 p-2 border border-gray-600 rounded w-full bg-gray-700 text-white"
                 />
-                <button type="submit" className="bg-black text-white py-2 px-4 rounded w-full">Cadastrar</button>
+                <button
+                    type="submit"
+                    className="bg-pink-400 text-white py-2 px-4 rounded w-full hover:bg-pink-300 transition-colors duration-200"
+                >
+                    Cadastrar
+                </button>
             </form>
         </div>
     );

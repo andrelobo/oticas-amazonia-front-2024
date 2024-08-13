@@ -4,9 +4,9 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 const Message = ({ message, onClose }) => (
-    <div className="fixed top-4 right-4 bg-white border border-gray-300 p-4 rounded shadow-md">
-        <p className="text-gray-800">{message}</p>
-        <button onClick={onClose} className="ml-2 text-sm text-gray-600 hover:text-gray-800 focus:outline-none">
+    <div className="fixed top-4 right-4 bg-gray-800 text-white border border-gray-700 p-4 rounded shadow-md">
+        <p>{message}</p>
+        <button onClick={onClose} className="ml-2 text-sm text-gray-400 hover:text-white focus:outline-none">
             Fechar
         </button>
     </div>
@@ -113,23 +113,23 @@ const RegisterPurchase = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-pastel-pink">
-            <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm relative">
-                <h2 className="text-2xl font-bold mb-4 text-black">Cadastro de Compra</h2>
+        <div className="flex justify-center items-center min-h-screen bg-gray-900">
+            <form onSubmit={handleSubmit} className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-sm relative">
+                <h2 className="text-2xl font-bold mb-4 text-white">Cadastro de Compra</h2>
                 <input
                     type="text"
                     placeholder="Nome do Cliente"
                     value={clientName}
                     onChange={handleSearch}
-                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                    className="mb-4 p-2 border border-gray-700 rounded w-full bg-gray-900 text-white placeholder-gray-400"
                 />
                 {filteredClients.length > 0 && (
-                    <ul className="bg-white border border-gray-300 rounded max-h-40 overflow-y-auto">
+                    <ul className="bg-gray-800 border border-gray-700 rounded max-h-40 overflow-y-auto">
                         {filteredClients.map(client => (
                             <li
                                 key={client._id}
                                 onClick={() => handleClientSelect(client)}
-                                className="p-2 cursor-pointer hover:bg-gray-200"
+                                className="p-2 cursor-pointer hover:bg-gray-700 text-white"
                             >
                                 {client.name}
                             </li>
@@ -141,22 +141,22 @@ const RegisterPurchase = () => {
                     placeholder="Detalhes da Compra"
                     value={details}
                     onChange={(e) => setDetails(e.target.value)}
-                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                    className="mb-4 p-2 border border-gray-700 rounded w-full bg-gray-900 text-white placeholder-gray-400"
                 />
                 <input
                     type="number"
                     placeholder="Valor Total"
                     value={totalAmount}
                     onChange={(e) => setTotalAmount(e.target.value)}
-                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                    className="mb-4 p-2 border border-gray-700 rounded w-full bg-gray-900 text-white placeholder-gray-400"
                 />
                 <DatePicker
                     selected={purchaseDate}
                     onChange={(date) => setPurchaseDate(date)}
                     dateFormat="dd/MM/yyyy"
-                    className="mb-4 p-2 border border-gray-300 rounded w-full"
+                    className="mb-4 p-2 border border-gray-700 rounded w-full bg-gray-900 text-white"
                 />
-                <label className="flex items-center mb-4 cursor-pointer">
+                <label className="flex items-center mb-4 cursor-pointer text-white">
                     <input
                         type="checkbox"
                         checked={purchaseStatus}
@@ -165,10 +165,10 @@ const RegisterPurchase = () => {
                     />
                     Status de Pagamento
                 </label>
-                <div onClick={handleToggleStatus} className={`w-12 h-6 flex items-center rounded-full p-1 cursor-pointer ${purchaseStatus ? 'bg-green-400' : 'bg-red-400'}`}>
+                <div onClick={handleToggleStatus} className={`w-12 h-6 flex items-center rounded-full p-1 cursor-pointer ${purchaseStatus ? 'bg-green-500' : 'bg-red-500'}`}>
                     <div className={`bg-white w-4 h-4 rounded-full shadow-md transform ${purchaseStatus ? 'translate-x-6' : ''}`}></div>
                 </div>
-                {error && <p className="text-red-600 mb-4">{error}</p>}
+                {error && <p className="text-red-400 mb-4">{error}</p>}
                 {message && <Message message={message} onClose={() => setMessage('')} />}
                 <button type="submit" className="bg-black text-white py-2 px-4 rounded w-full">Cadastrar</button>
             </form>

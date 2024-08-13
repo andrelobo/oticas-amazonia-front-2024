@@ -1,8 +1,7 @@
-// src/components/Login.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'; // Importando o SweetAlert2
+import Swal from 'sweetalert2';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -13,65 +12,71 @@ const Login = () => {
         e.preventDefault();
         try {
             const response = await axios.post('https://zoe-be.onrender.com/api/users/login', { email, password });
-            console.log('Resposta da API:', response.data);
+            console.log('API Response:', response.data);
 
             if (response.data.accessToken) {
-                const { accessToken } = response.data;
-                localStorage.setItem('token', accessToken);
-                console.log('Token armazenado no localStorage:', localStorage.getItem('token'));
+                localStorage.setItem('token', response.data.accessToken);
 
-                // Exibe uma notificação de sucesso
                 Swal.fire({
                     icon: 'success',
-                    title: 'Login bem-sucedido!',
-                    text: 'Você foi autenticado com sucesso.',
+                    title: 'Login Successful!',
+                    text: 'You have been authenticated successfully.',
                     timer: 2000,
                     showConfirmButton: false,
                 });
 
                 navigate('/client-list');
             } else {
-                console.error('accessToken não recebido na resposta:', response.data);
-
-                // Exibe uma notificação de erro
                 Swal.fire({
                     icon: 'error',
-                    title: 'Erro ao fazer login',
-                    text: 'O token de acesso não foi recebido.',
+                    title: 'Login Error',
+                    text: 'Access token not received.',
                 });
             }
         } catch (error) {
-            console.error('Erro ao fazer login:', error);
-
-            // Exibe uma notificação de erro
             Swal.fire({
                 icon: 'error',
-                title: 'Erro ao fazer login',
-                text: 'Verifique suas credenciais e tente novamente.',
+                title: 'Login Error',
+                text: error.response?.data?.message || 'An error occurred during login.',
             });
         }
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-pastel-pink">
-            <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
-                <h2 className="text-2xl font-bold mb-4 text-black">Login</h2>
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="mb-4 p-2 border border-gray-300 rounded w-full"
-                />
-                <input
-                    type="password"
-                    placeholder="Senha"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="mb-4 p-2 border border-gray-300 rounded w-full"
-                />
-                <button type="submit" className="bg-black text-white py-2 px-4 rounded w-full">Login</button>
-            </form>
+        <div className="flex items-center justify-center min-h-screen bg-gray-900 text-gray-100">
+            <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
+                <h2 className="text-2xl font-bold text-pink-400 mb-6">Login</h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                        <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full p-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-pink-500 text-gray-200"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="password" className="block text-sm font-medium mb-1">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="w-full p-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-pink-500 text-gray-200"
+                            required
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        className="w-full py-2 bg-pink-500 text-white font-semibold rounded hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    >
+                        Login
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };

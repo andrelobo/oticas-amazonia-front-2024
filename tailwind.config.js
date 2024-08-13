@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Montserrat', 'sans-serif'],
+      },
       colors: {
         'pastel-pink': '#FFC0CB',
         'dark-bg': '#1a1a1a',
