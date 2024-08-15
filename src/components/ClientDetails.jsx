@@ -79,41 +79,44 @@ const ClientDetails = ({ clientId }) => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-gray-100 py-10">
       {client ? (
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
-          <h2 className="text-xl text-pink-400 mb-4">{client.name}</h2>
-          <p className="mb-1"><strong>Email:</strong> {client.email}</p>
-          <p className="mb-1"><strong>Telefone:</strong> {client.phone}</p>
-          <p className="mb-1"><strong>Endereço:</strong> {client.address}</p>
-          <p className="mb-1"><strong>Status da Compra:</strong> {client.purchaseStatus ? 'Pago' : 'Não Pago'}</p>
-          <p className="mb-1"><strong>Qtd de Compras:</strong> {purchases.length}</p>
+          <div className="flex flex-col justify-between h-full">
+            <div>
+              <h2 className="text-xl text-pink-200 mb-4">{client.name}</h2>
+              <p className="mb-1"><strong>Email:</strong> {client.email}</p>
+              <p className="mb-1"><strong>Telefone:</strong> {client.phone}</p>
+              <p className="mb-1"><strong>Endereço:</strong> {client.address}</p>
+              <p className="mb-1"><strong>Status da Compra:</strong> {client.purchaseStatus ? 'Pago' : 'Não Pago'}</p>
+              <p className="mb-1"><strong>Qtd de Compras:</strong> {purchases.length}</p>
 
-          <h3 className="text-lg font-semibold text-pink-400 mt-4">Compras</h3>
-          {purchases.length > 0 ? (
-            <ul className="mt-2 space-y-4">
-              {purchases.map(purchase => (
-                <li key={purchase._id} className="bg-gray-700 p-4 rounded-lg shadow-sm flex items-center justify-between">
-                  <div className="flex-1">
-                    <p className="mb-1"><strong>Data da Compra:</strong> {new Date(purchase.purchaseDate).toLocaleDateString('pt-BR')}</p>
-                    <p className="mb-1"><strong>Detalhes:</strong> {purchase.details}</p>
-                    <p className="mb-1"><strong>Total da Compra:</strong> R$ {purchase.totalAmount.toFixed(2)}</p>
-                  </div>
-                  <div className="flex items-center">
-                    <p className="mr-2"><strong>Status:</strong></p>
-                    <div className={`w-12 h-6 flex items-center rounded-full p-1 ${purchase.purchaseStatus ? 'bg-green-500' : 'bg-red-500'}`}>
-                      <div className={`bg-white w-4 h-4 rounded-full shadow-md transform ${purchase.purchaseStatus ? 'translate-x-6' : ''}`}></div>
-                    </div>
-                    <button
-                      onClick={() => handleUpdatePurchaseStatus(purchase._id, purchase.purchaseStatus)}
-                      className="ml-4 px-1 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
-                    >
-                      {purchase.purchaseStatus ? 'Marcar como Não Pago' : 'Marcar como Pago'}
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>Não foram encontradas Compras</p>
-          )}
+              <h3 className="text-lg font-semibold text-pink-200 mt-4">Compras</h3>
+              {purchases.length > 0 ? (
+                <ul className="mt-2 space-y-4">
+                  {purchases.map(purchase => (
+                    <li key={purchase._id} className="bg-gray-700 p-4 rounded-lg shadow-sm flex flex-col">
+                      <div className="flex-1">
+                        <p className="mb-1"><strong>Data da Compra:</strong> {new Date(purchase.purchaseDate).toLocaleDateString('pt-BR')}</p>
+                        <p className="mb-1"><strong>Detalhes:</strong> {purchase.details}</p>
+                        <p className="mb-1"><strong>Total da Compra:</strong> R$ {purchase.totalAmount.toFixed(2)}</p>
+                      </div>
+                      <div className="flex items-center justify-between mt-4">
+                        <div className={`w-12 h-6 flex items-center rounded-full p-1 ${purchase.purchaseStatus ? 'bg-green-500' : 'bg-red-500'}`}>
+                          <div className={`bg-white w-4 h-4 rounded-full shadow-md transform ${purchase.purchaseStatus ? 'translate-x-6' : ''}`}></div>
+                        </div>
+                        <button
+                          onClick={() => handleUpdatePurchaseStatus(purchase._id, purchase.purchaseStatus)}
+                          className="ml-4 px-1 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+                        >
+                          {purchase.purchaseStatus ? 'Marcar como Não Pago' : 'Marcar como Pago'}
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>Não foram encontradas Compras</p>
+              )}
+            </div>
+          </div>
         </div>
       ) : (
         <p className="text-center">Cliente não encontrado</p>

@@ -11,7 +11,7 @@ const ClientCard = ({ client, onEdit, onDelete }) => {
   return (
     <div className="bg-gray-800 text-gray-100 shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-200">
       <div className="bg-gray-700 p-6">
-        <h2 className="text-2xl text-pink-400 mb-2">{client.name}</h2>
+        <h2 className="text-2xl text-pink-200 mb-2">{client.name}</h2>
         <p className="text-gray-200 mb-1"><strong>Email:</strong> {client.email}</p>
         <p className="text-gray-200 mb-1"><strong>Telefone:</strong> {client.phone}</p>
         <div className="mt-4 flex justify-between space-x-2">

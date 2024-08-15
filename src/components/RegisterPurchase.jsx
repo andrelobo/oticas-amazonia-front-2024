@@ -156,18 +156,7 @@ const RegisterPurchase = () => {
                     dateFormat="dd/MM/yyyy"
                     className="mb-4 p-2 border border-gray-700 rounded w-full bg-gray-900 text-white"
                 />
-                <label className="flex items-center mb-4 cursor-pointer text-white">
-                    <input
-                        type="checkbox"
-                        checked={purchaseStatus}
-                        onChange={handleToggleStatus}
-                        className="mr-2"
-                    />
-                    Status de Pagamento
-                </label>
-                <div onClick={handleToggleStatus} className={`w-12 h-6 flex items-center rounded-full p-1 cursor-pointer ${purchaseStatus ? 'bg-green-500' : 'bg-red-500'}`}>
-                    <div className={`bg-white w-4 h-4 rounded-full shadow-md transform ${purchaseStatus ? 'translate-x-6' : ''}`}></div>
-                </div>
+                              
                 {error && <p className="text-red-400 mb-4">{error}</p>}
                 {message && <Message message={message} onClose={() => setMessage('')} />}
                 <button type="submit" className="bg-black text-white py-2 px-4 rounded w-full">Cadastrar</button>

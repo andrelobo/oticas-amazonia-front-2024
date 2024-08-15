@@ -33,7 +33,7 @@ const ClientList = () => {
   return (
     <div className="min-h-screen bg-gray-900 py-10">
       <div className="container mx-auto px-4">
-        <h1 className="text-3xl font-semibold text-pink-400 mb-8">Lista de Clientes</h1>
+        <h1 className="text-3xl font-semibold text-pink-200 mb-8">Lista de Clientes</h1>
         <ul className="space-y-4">
           {clients.map(client => (
             <li key={client._id} className="bg-gray-800 p-6 rounded-lg shadow-lg flex items-center justify-between">
@@ -43,7 +43,7 @@ const ClientList = () => {
                 <p className="text-gray-300"><strong>Telefone:</strong> {client.phone}</p>
                 <p className="text-gray-300"><strong>Qtd de Compras:</strong> {client.purchaseCount}</p>
               </div>
-              <Link to={`/clients/${client._id}`} className="text-pink-400 hover:text-white font-semibold">
+              <Link to={`/clients/${client._id}`} className="text-pink-200 hover:text-white font-semibold">
                 View Details
               </Link>
             </li>
