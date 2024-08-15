@@ -99,15 +99,15 @@ const ClientDetails = ({ clientId }) => {
                         <p className="mb-1"><strong>Total da Compra:</strong> R$ {purchase.totalAmount.toFixed(2)}</p>
                       </div>
                       <div className="flex items-center justify-between mt-4">
-                        <div className={`w-12 h-6 flex items-center rounded-full p-1 ${purchase.purchaseStatus ? 'bg-green-500' : 'bg-red-500'}`}>
-                          <div className={`bg-white w-4 h-4 rounded-full shadow-md transform ${purchase.purchaseStatus ? 'translate-x-6' : ''}`}></div>
-                        </div>
                         <button
                           onClick={() => handleUpdatePurchaseStatus(purchase._id, purchase.purchaseStatus)}
-                          className="ml-4 px-1 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+                          className="px-1 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
                         >
                           {purchase.purchaseStatus ? 'Marcar como Não Pago' : 'Marcar como Pago'}
                         </button>
+                        <div className={`w-12 h-6 flex items-center rounded-full p-1 ${purchase.purchaseStatus ? 'bg-green-500' : 'bg-red-500'}`}>
+                          <div className={`bg-white w-4 h-4 rounded-full shadow-md transform ${purchase.purchaseStatus ? 'translate-x-6' : ''}`}></div>
+                        </div>
                       </div>
                     </li>
                   ))}
