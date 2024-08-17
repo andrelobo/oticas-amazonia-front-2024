@@ -10,7 +10,7 @@ const ClientList = () => {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await axios.get('https://zoe-be.onrender.com/api/clients');
+        const response = await axios.get('https://zoe-be.vercel.app/api/clients');
         setClients(response.data.clients);
       } catch (error) {
         setError('Error fetching clients');

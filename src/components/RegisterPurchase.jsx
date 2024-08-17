@@ -27,7 +27,7 @@ const RegisterPurchase = () => {
     useEffect(() => {
         const fetchClients = async () => {
             try {
-                const response = await axios.get('https://zoe-be.onrender.com/api/clients');
+                const response = await axios.get('https://zoe-be.vercel.app/api/clients');
                 setClients(response.data.clients);
             } catch (error) {
                 console.error(error);
@@ -63,7 +63,7 @@ const RegisterPurchase = () => {
         }
 
         try {
-            const response = await axios.post('https://zoe-be.onrender.com/api/purchases', {
+            const response = await axios.post('https://zoe-be.vercel.app/api/purchases', {
                 clientId,
                 details,
                 totalAmount: parseFloat(totalAmount),
@@ -96,7 +96,7 @@ const RegisterPurchase = () => {
         setPurchaseStatus(updatedStatus);
 
         try {
-            await axios.put(`https://zoe-be.onrender.com/api/purchases/${clientId}`, {
+            await axios.put(`https://zoe-be.vercel.app/api/purchases/${clientId}`, {
                 purchaseStatus: updatedStatus
             });
             showMessage(`Status da compra atualizado para ${updatedStatus ? 'Pago' : 'Não Pago'}`);

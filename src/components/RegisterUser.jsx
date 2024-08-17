@@ -10,7 +10,7 @@ const RegisterUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://zoe-be.onrender.com/api/users/', { username, email, password });
+            const response = await axios.post('https://zoe-be.vercel.app/api/users/', { username, email, password });
             console.log(response.data);
 
             // Exibe a mensagem de sucesso com SweetAlert2

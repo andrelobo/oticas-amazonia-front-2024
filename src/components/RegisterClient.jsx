@@ -10,7 +10,7 @@ const RegisterClient = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://zoe-be.onrender.com/api/clients', {
+            const response = await axios.post('https://zoe-be.vercel.app/api/clients', {
                 name,
                 email,
                 phone

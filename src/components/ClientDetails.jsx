@@ -11,7 +11,7 @@ const ClientDetails = ({ clientId }) => {
   useEffect(() => {
     const fetchClient = async () => {
       try {
-        const response = await axios.get(`https://zoe-be.onrender.com/api/clients/${clientId}`);
+        const response = await axios.get(`https://zoe-be.vercel.app/api/clients/${clientId}`);
         setClient(response.data.client);
       } catch (error) {
         setError('Erro ao buscar detalhes do cliente');
@@ -22,7 +22,7 @@ const ClientDetails = ({ clientId }) => {
 
     const fetchPurchases = async () => {
       try {
-        const response = await axios.get(`https://zoe-be.onrender.com/api/purchases/client/${clientId}`);
+        const response = await axios.get(`https://zoe-be.vercel.app/api/purchases/client/${clientId}`);
         setPurchases(response.data.purchases);
       } catch (error) {
         setError('Erro ao buscar compras do cliente');
@@ -46,7 +46,7 @@ const ClientDetails = ({ clientId }) => {
 
     if (result.isConfirmed) {
       try {
-        await axios.put(`https://zoe-be.onrender.com/api/purchases/${purchaseId}`, {
+        await axios.put(`https://zoe-be.vercel.app/api/purchases/${purchaseId}`, {
           purchaseStatus: !currentStatus
         });
         setPurchases(purchases.map(purchase =>

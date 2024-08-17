@@ -11,7 +11,7 @@ const ClientListAllPage = () => {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await fetch('https://zoe-be.onrender.com/api/clients');
+        const response = await fetch('https://zoe-be.vercel.app/api/clients');
         if (!response.ok) {
           throw new Error('Erro ao buscar os clientes');
         }
@@ -33,7 +33,7 @@ const ClientListAllPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`https://zoe-be.onrender.com/api/clients/${id}`, {
+      const response = await fetch(`https://zoe-be.vercel.app/api/clients/${id}`, {
         method: 'DELETE',
       });
       if (!response.ok) {
@@ -47,7 +47,7 @@ const ClientListAllPage = () => {
 
   const handleSave = async (updatedClient) => {
     try {
-      const response = await fetch(`https://zoe-be.onrender.com/api/clients/${updatedClient._id}`, {
+      const response = await fetch(`https://zoe-be.vercel.app/api/clients/${updatedClient._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

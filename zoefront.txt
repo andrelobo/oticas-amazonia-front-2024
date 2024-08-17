@@ -64,7 +64,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://zoe-be.onrender.com/api/users/login', { email, password });
+            const response = await axios.post('https://zoe-be.vercel.app/api/users/login', { email, password });
             console.log(response.data);
             // Salve o token no localStorage e redirecione o usuário
         } catch (error) {
@@ -114,7 +114,7 @@ const RegisterUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://zoe-be.onrender.com/api/users/register', { name, email, password });
+            const response = await axios.post('https://zoe-be.vercel.app/api/users/register', { name, email, password });
             console.log(response.data);
             // Redirecione ou mostre mensagem de sucesso
         } catch (error) {
@@ -170,7 +170,7 @@ const RegisterClient = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://zoe-be.onrender.com/api/clients', { name, email });
+            const response = await axios.post('https://zoe-be.vercel.app/api/clients', { name, email });
             console.log(response.data);
             // Redirecione ou mostre mensagem de sucesso
         } catch (error) {
@@ -220,7 +220,7 @@ const RegisterPurchase = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://zoe-be.onrender.com/api/purchases', { clientId, product, amount });
+            const response = await axios.post('https://zoe-be.vercel.app/api/purchases', { clientId, product, amount });
             console.log(response.data);
             // Redirecione ou mostre mensagem de sucesso
         } catch (error) {
@@ -275,7 +275,7 @@ jsx
         useEffect(() => {
             const fetchClients = async () => {
                 try {
-                    const response = await axios.get(`https://zoe-be.onrender.com/api/clients?status=${status}`);
+                    const response = await axios.get(`https://zoe-be.vercel.app/api/clients?status=${status}`);
                     setClients(response.data);
                 } catch (error) {
                     console.error(error);
