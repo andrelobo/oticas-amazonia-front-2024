@@ -9,6 +9,8 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
+        playfair: ['Playfair Display', 'serif'],
+        greatvibes: ['Great Vibes', 'cursive'],
       },
       colors: {
         'pastel-pink': '#FFC0CB',

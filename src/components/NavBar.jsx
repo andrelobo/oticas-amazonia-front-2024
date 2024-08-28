@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import logo from '../assets/logo.png';
+
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +14,7 @@ const NavBar = () => {
         <nav className="bg-gray-900 p-4">
             <div className="container mx-auto flex justify-between items-center">
                 <div className="flex items-center space-x-2">
-                    <img src={logo} alt="Logo" className="w-32 h-auto" />
+                <div className="font-greatvibes text-4xl text-pink-500">Zoe Fashion Store</div>
                 </div>
                 <div className="hidden md:flex space-x-4 text-white">
                     <Link to="/login" className="hover:text-gray-400">Login</Link>
