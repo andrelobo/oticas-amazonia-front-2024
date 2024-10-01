@@ -21,9 +21,7 @@ const ClientListAllPage = () => {
           throw new Error('Unauthorized: Token not found');
         }
 
-        const response = await fetch('https://oticaamazoniabackend.vercel.app/
-
-api/clients', {
+        const response = await fetch('https://oticaamazoniabackend.vercel.app/api/clients', {
           headers: {
             Authorization: `Bearer ${token}`, // Incluindo o token no cabeçalho
           },
@@ -82,9 +80,7 @@ api/clients/${id}`, {
         throw new Error('Unauthorized: Token not found');
       }
 
-      const response = await fetch(`https://oticaamazoniabackend.vercel.app/
-
-api/clients/${updatedClient._id}`, {
+      const response = await fetch(`https://oticaamazoniabackend.vercel.app/api/clients/${updatedClient._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

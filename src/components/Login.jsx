@@ -28,9 +28,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://oticaamazoniabackend.vercel.app/
-
-api/users/login', { email, password });
+            const response = await axios.post('https://oticaamazoniabackend.vercel.app/api/users/login', { email, password });
             console.log('API Response:', response.data);
 
             if (response.data.accessToken) {

@@ -21,9 +21,7 @@ const RegisterClient = () => {
             }
 
             const response = await axios.post(
-                'https://oticaamazoniabackend.vercel.app/
-
-api/clients',
+                'https://oticaamazoniabackend.vercel.app/api/clients',
                 { name, email, phone },
                 {
                     headers: {

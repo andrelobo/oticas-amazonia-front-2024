@@ -11,9 +11,7 @@ const ClientListAll = () => {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await fetch('https://oticaamazoniabackend.vercel.app/
-
-api/clients');
+        const response = await fetch('https://oticaamazoniabackend.vercel.app/api/clients');
         if (!response.ok) {
           throw new Error('Error fetching clients');
         }
@@ -38,9 +36,7 @@ api/clients');
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`https://oticaamazoniabackend.vercel.app/
-
-api/clients/${id}`, {
+      const response = await fetch(`https://oticaamazoniabackend.vercel.app/api/clients/${id}`, {
         method: 'DELETE'
       });
       if (!response.ok) {
@@ -54,9 +50,7 @@ api/clients/${id}`, {
 
   const handleSave = async (updatedClient) => {
     try {
-      const response = await fetch(`https://oticaamazoniabackend.vercel.app/
-
-api/clients/${updatedClient._id}`, {
+      const response = await fetch(`https://oticaamazoniabackend.vercel.app/api/clients/${updatedClient._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

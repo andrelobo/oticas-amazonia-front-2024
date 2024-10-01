@@ -20,9 +20,7 @@ const ClientList = () => {
           throw new Error('Unauthorized: Token not found');
         }
 
-        const response = await axios.get('https://oticaamazoniabackend.vercel.app/
-
-api/clients', {
+        const response = await axios.get('https://oticaamazoniabackend.vercel.app/api/clients', {
           headers: {
             Authorization: `Bearer ${token}`, // Incluindo o token no cabeçalho
           },

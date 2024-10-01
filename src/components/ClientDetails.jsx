@@ -13,16 +13,12 @@ const ClientDetails = ({ clientId }) => {
       try {
         const token = localStorage.getItem('token'); // Obtendo o token do localStorage
 
-        const clientResponse = await axios.get(`https://oticaamazoniabackend.vercel.app/
-
-api/clients/${clientId}`, {
+        const clientResponse = await axios.get(`https://oticaamazoniabackend.vercel.app/api/clients/${clientId}`, {
           headers: { Authorization: `Bearer ${token}` }, // Incluindo o token no cabeçalho
         });
         setClient(clientResponse.data.client);
 
-        const purchasesResponse = await axios.get(`https://oticaamazoniabackend.vercel.app/
-
-api/purchases/client/${clientId}`, {
+        const purchasesResponse = await axios.get(`https://oticaamazoniabackend.vercel.app/api/purchases/client/${clientId}`, {
           headers: { Authorization: `Bearer ${token}` }, // Incluindo o token no cabeçalho
         });
         setPurchases(purchasesResponse.data.purchases);
@@ -51,9 +47,7 @@ api/purchases/client/${clientId}`, {
       try {
         const token = localStorage.getItem('token'); // Obtendo o token do localStorage
         await axios.put(
-          `https://oticaamazoniabackend.vercel.app/
-
-api/purchases/${purchaseId}`,
+          `https://oticaamazoniabackend.vercel.app/api/purchases/${purchaseId}`,
           { purchaseStatus: !currentStatus },
           { headers: { Authorization: `Bearer ${token}` } } // Incluindo o token no cabeçalho
         );
