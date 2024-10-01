@@ -36,44 +36,44 @@ const EditClientModal = ({ client, onSave, onCancel }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-semibold mb-4">Editar Cliente</h2>
+      <div className="bg-green-800 p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-semibold text-white mb-4">Editar Cliente</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-700">Nome</label>
+            <label className="block text-gray-300">Nome</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full mt-1 p-2 border border-gray-300 rounded"
+              className="w-full mt-1 p-2 border border-gray-600 rounded bg-gray-700 text-white"
               required
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Email</label>
+            <label className="block text-gray-300">Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full mt-1 p-2 border border-gray-300 rounded"
+              className="w-full mt-1 p-2 border border-gray-600 rounded bg-gray-700 text-white"
               required
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Telefone</label>
+            <label className="block text-gray-300">Telefone</label>
             <input
               type="text"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full mt-1 p-2 border border-gray-300 rounded"
+              className="w-full mt-1 p-2 border border-gray-600 rounded bg-gray-700 text-white"
               required
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Status da Compra</label>
+            <label className="block text-gray-300">Status da Compra</label>
             <input
               type="checkbox"
               name="purchaseStatus"
@@ -83,13 +83,13 @@ const EditClientModal = ({ client, onSave, onCancel }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Número de Compras</label>
+            <label className="block text-gray-300">Número de Compras</label>
             <input
               type="number"
               name="purchaseCount"
               value={formData.purchaseCount}
               onChange={handleChange}
-              className="w-full mt-1 p-2 border border-gray-300 rounded"
+              className="w-full mt-1 p-2 border border-gray-600 rounded bg-gray-700 text-white"
               required
             />
           </div>
@@ -97,13 +97,13 @@ const EditClientModal = ({ client, onSave, onCancel }) => {
             <button
               type="button"
               onClick={onCancel}
-              className="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2"
+              className="bg-gray-600 text-white px-4 py-2 rounded mr-2 hover:bg-gray-500 transition-colors duration-200"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="bg-[#d957a9] text-white px-4 py-2 rounded"
+              className="bg-[#2d6a4f] text-white px-4 py-2 rounded hover:bg-[#1f4d40] transition-colors duration-200"
             >
               Salvar
             </button>

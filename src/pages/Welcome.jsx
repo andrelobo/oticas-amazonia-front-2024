@@ -2,7 +2,7 @@ import React from 'react'
 
 function Welcome() {
   return (
-    <div>Bem-vindo ao Zoe App!!</div>
+    <div>Bem-vindo ao App da Ótica Amazônia!!</div>
   )
 }
 

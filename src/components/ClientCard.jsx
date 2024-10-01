@@ -9,15 +9,15 @@ const ClientCard = ({ client, onEdit, onDelete }) => {
   };
 
   return (
-    <div className="bg-gray-800 text-gray-100 shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-200">
-      <div className="bg-gray-700 p-6">
-        <h2 className="text-2xl text-pink-200 mb-2">{client.name}</h2>
-        <p className="text-gray-200 mb-1"><strong>Email:</strong> {client.email}</p>
-        <p className="text-gray-200 mb-1"><strong>Telefone:</strong> {client.phone}</p>
+    <div className="bg-amazon-green-dark text-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-200">
+      <div className="bg-amazon-green-light p-6">
+        <h2 className="text-2xl text-white mb-2">{client.name}</h2>
+        <p className="text-white mb-1"><strong>Email:</strong> {client.email}</p>
+        <p className="text-white mb-1"><strong>Telefone:</strong> {client.phone}</p>
         <div className="mt-4 flex justify-between space-x-2">
           <button
             onClick={() => onEdit(client)}
-            className="bg-gray-900 text-white px-2 py-1 rounded hover:bg-gray-700 transition-colors duration-200"
+            className="bg-amazon-green text-white px-2 py-1 rounded hover:bg-amazon-green-light transition-colors duration-200"
           >
             Editar
           </button>
@@ -25,11 +25,11 @@ const ClientCard = ({ client, onEdit, onDelete }) => {
             onClick={() => onDelete(client._id)}
             className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 transition-colors duration-200"
           >
-            Delete
+            Deletar
           </button>
           <button
             onClick={handlePurchases}
-            className="bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700 transition-colors duration-200"
+            className="bg-amazon-green-dark text-white px-2 py-1 rounded hover:bg-amazon-green transition-colors duration-200"
           >
             Compras
           </button>

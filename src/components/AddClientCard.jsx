@@ -7,7 +7,8 @@ import {
   Button,
   TextField,
   Select,
-  MenuItem
+  MenuItem,
+  Typography
 } from '@mui/material';
 
 const AddClientCard = ({ onSave, onCancel }) => {
@@ -35,8 +36,10 @@ const AddClientCard = ({ onSave, onCancel }) => {
 
   return (
     <Dialog open onClose={onCancel}>
-      <DialogTitle>Adicionar Cliente</DialogTitle>
-      <DialogContent>
+      <DialogTitle sx={{ backgroundColor: 'amazon-green', color: 'white' }}>
+        Adicionar Cliente
+      </DialogTitle>
+      <DialogContent sx={{ backgroundColor: 'amazon-green-light', color: 'white' }}>
         {error && <Typography color="error">{error}</Typography>}
         <TextField
           margin="dense"
@@ -46,7 +49,7 @@ const AddClientCard = ({ onSave, onCancel }) => {
           fullWidth
           value={newClient.name}
           onChange={handleChange}
-          sx={{ marginBottom: 2 }}
+          sx={{ marginBottom: 2, backgroundColor: 'white', borderRadius: 1 }}
         />
         <TextField
           margin="dense"
@@ -56,7 +59,7 @@ const AddClientCard = ({ onSave, onCancel }) => {
           fullWidth
           value={newClient.email}
           onChange={handleChange}
-          sx={{ marginBottom: 2 }}
+          sx={{ marginBottom: 2, backgroundColor: 'white', borderRadius: 1 }}
         />
         <TextField
           margin="dense"
@@ -66,7 +69,7 @@ const AddClientCard = ({ onSave, onCancel }) => {
           fullWidth
           value={newClient.phone}
           onChange={handleChange}
-          sx={{ marginBottom: 2 }}
+          sx={{ marginBottom: 2, backgroundColor: 'white', borderRadius: 1 }}
         />
         <Select
           label="Status da Compra"
@@ -74,7 +77,7 @@ const AddClientCard = ({ onSave, onCancel }) => {
           fullWidth
           value={newClient.purchaseStatus}
           onChange={handleChange}
-          sx={{ marginBottom: 2 }}
+          sx={{ marginBottom: 2, backgroundColor: 'white', borderRadius: 1 }}
         >
           <MenuItem value={true}>Pago</MenuItem>
           <MenuItem value={false}>Não Pago</MenuItem>
@@ -87,14 +90,14 @@ const AddClientCard = ({ onSave, onCancel }) => {
           fullWidth
           value={newClient.purchaseCount}
           onChange={handleChange}
-          sx={{ marginBottom: 2 }}
+          sx={{ marginBottom: 2, backgroundColor: 'white', borderRadius: 1 }}
         />
       </DialogContent>
-      <DialogActions>
-        <Button onClick={onCancel} sx={{ color: '#d957a9' }}>
+      <DialogActions sx={{ backgroundColor: 'amazon-green' }}>
+        <Button onClick={onCancel} sx={{ color: 'white' }}>
           Cancelar
         </Button>
-        <Button onClick={handleSave} sx={{ color: '#d957a9' }}>
+        <Button onClick={handleSave} sx={{ color: 'white' }}>
           Salvar
         </Button>
       </DialogActions>

@@ -9,28 +9,31 @@ const ClientDetails = ({ clientId }) => {
   const [purchases, setPurchases] = useState([]);
 
   useEffect(() => {
-    const fetchClient = async () => {
+    const fetchClientData = async () => {
       try {
-        const response = await axios.get(`https://zoe-be.vercel.app/api/clients/${clientId}`);
-        setClient(response.data.client);
+        const token = localStorage.getItem('token'); // Obtendo o token do localStorage
+
+        const clientResponse = await axios.get(`https://oticaamazoniabackend.vercel.app/
+
+api/clients/${clientId}`, {
+          headers: { Authorization: `Bearer ${token}` }, // Incluindo o token no cabeçalho
+        });
+        setClient(clientResponse.data.client);
+
+        const purchasesResponse = await axios.get(`https://oticaamazoniabackend.vercel.app/
+
+api/purchases/client/${clientId}`, {
+          headers: { Authorization: `Bearer ${token}` }, // Incluindo o token no cabeçalho
+        });
+        setPurchases(purchasesResponse.data.purchases);
       } catch (error) {
-        setError('Erro ao buscar detalhes do cliente');
+        setError('Erro ao buscar detalhes do cliente ou compras');
       } finally {
         setLoading(false);
       }
     };
 
-    const fetchPurchases = async () => {
-      try {
-        const response = await axios.get(`https://zoe-be.vercel.app/api/purchases/client/${clientId}`);
-        setPurchases(response.data.purchases);
-      } catch (error) {
-        setError('Erro ao buscar compras do cliente');
-      }
-    };
-
-    fetchClient();
-    fetchPurchases();
+    fetchClientData();
   }, [clientId]);
 
   const handleUpdatePurchaseStatus = async (purchaseId, currentStatus) => {
@@ -41,34 +44,34 @@ const ClientDetails = ({ clientId }) => {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sim, atualize o status!'
+      confirmButtonText: 'Sim, atualize o status!',
     });
 
     if (result.isConfirmed) {
       try {
-        await axios.put(`https://zoe-be.vercel.app/api/purchases/${purchaseId}`, {
-          purchaseStatus: !currentStatus
-        });
-        setPurchases(purchases.map(purchase =>
-          purchase._id === purchaseId ? { ...purchase, purchaseStatus: !currentStatus } : purchase
-        ));
-        Swal.fire(
-          'Atualizado!',
-          'O status da Compra foi atualizado!.',
-          'success'
+        const token = localStorage.getItem('token'); // Obtendo o token do localStorage
+        await axios.put(
+          `https://oticaamazoniabackend.vercel.app/
+
+api/purchases/${purchaseId}`,
+          { purchaseStatus: !currentStatus },
+          { headers: { Authorization: `Bearer ${token}` } } // Incluindo o token no cabeçalho
         );
+
+        setPurchases((prevPurchases) =>
+          prevPurchases.map((purchase) =>
+            purchase._id === purchaseId ? { ...purchase, purchaseStatus: !currentStatus } : purchase
+          )
+        );
+        Swal.fire('Atualizado!', 'O status da Compra foi atualizado!', 'success');
       } catch (error) {
-        Swal.fire(
-          'Erro!',
-          'Não foi possível atualizar o status!.',
-          'error'
-        );
+        Swal.fire('Erro!', 'Não foi possível atualizar o status!', 'error');
       }
     }
   };
 
   if (loading) {
-    return <p className="text-center text-gray-400">Carregando...</p>;
+    return <p className="text-center text-amazon-green-light">Carregando...</p>;
   }
 
   if (error) {
@@ -76,23 +79,23 @@ const ClientDetails = ({ clientId }) => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-gray-100 py-10">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-amazon-green-dark text-white py-10">
       {client ? (
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
+        <div className="bg-green-600 p-6 rounded-lg shadow-lg w-full max-w-md">
           <div className="flex flex-col justify-between h-full">
             <div>
-              <h2 className="text-xl text-pink-200 mb-4">{client.name}</h2>
+              <h2 className="text-xl mb-4">{client.name}</h2>
               <p className="mb-1"><strong>Email:</strong> {client.email}</p>
               <p className="mb-1"><strong>Telefone:</strong> {client.phone}</p>
               <p className="mb-1"><strong>Endereço:</strong> {client.address}</p>
               <p className="mb-1"><strong>Status da Compra:</strong> {client.purchaseStatus ? 'Pago' : 'Não Pago'}</p>
               <p className="mb-1"><strong>Qtd de Compras:</strong> {purchases.length}</p>
 
-              <h3 className="text-lg font-semibold text-pink-200 mt-4">Compras</h3>
+              <h3 className="text-lg font-semibold mt-4">Compras</h3>
               {purchases.length > 0 ? (
                 <ul className="mt-2 space-y-4">
-                  {purchases.map(purchase => (
-                    <li key={purchase._id} className="bg-gray-700 p-4 rounded-lg shadow-sm flex flex-col">
+                  {purchases.map((purchase) => (
+                    <li key={purchase._id} className="bg-green-500 p-4 rounded-lg shadow-sm flex flex-col text-white">
                       <div className="flex-1">
                         <p className="mb-1"><strong>Data da Compra:</strong> {new Date(purchase.purchaseDate).toLocaleDateString('pt-BR')}</p>
                         <p className="mb-1"><strong>Detalhes:</strong> {purchase.details}</p>

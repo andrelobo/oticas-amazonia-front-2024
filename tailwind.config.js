@@ -7,21 +7,32 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['Montserrat', 'sans-serif'],
-        playfair: ['Playfair Display', 'serif'],
-        greatvibes: ['Great Vibes', 'cursive'],
-      },
       colors: {
-        'pastel-pink': '#FFC0CB',
-        'dark-bg': '#1a1a1a',
-        'dark-card': '#2a2a2a',
-        'dark-text': '#e0e0e0',
-        'pink-highlight': '#ff79c6',
-        'black': '#000000',
-        'white': '#FFFFFF',
+        'custom-background': '#1a1a2e',
+        'custom-text': '#eaeaea',
+        'custom-card': '#16213e',
+        'custom-heading': '#f64f59',
+        'custom-label': '#c1c1c1',
+        'custom-input': '#0f3460',
+        'custom-border': '#3b3b98',
       },
     },
   },
   plugins: [],
+};
+
+// Check for null pointer references
+if (typeof module.exports.content === 'undefined') {
+  throw new Error('module.exports.content is undefined');
 }
+
+// Check for unhandled exceptions
+try {
+  const config = module.exports;
+  if (typeof config.theme === 'undefined') {
+    throw new Error('module.exports.theme is undefined');
+  }
+} catch (error) {
+  console.error('Error in tailwind.config.js:', error);
+}
+

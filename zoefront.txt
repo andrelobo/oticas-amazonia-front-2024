@@ -25,7 +25,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'pastel-pink': '#FFC0CB',
+        'amazon-green': '#FFC0CB',
         'black': '#000000',
         'white': '#FFFFFF',
       },
@@ -64,7 +64,9 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://zoe-be.vercel.app/api/users/login', { email, password });
+            const response = await axios.post('https://oticaamazoniabackend.vercel.app/
+
+api/users/login', { email, password });
             console.log(response.data);
             // Salve o token no localStorage e redirecione o usuário
         } catch (error) {
@@ -73,7 +75,7 @@ const Login = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-pastel-pink">
+        <div className="flex justify-center items-center min-h-screen bg-amazon-green">
             <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
                 <h2 className="text-2xl font-bold mb-4 text-black">Login</h2>
                 <input
@@ -114,7 +116,9 @@ const RegisterUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://zoe-be.vercel.app/api/users/register', { name, email, password });
+            const response = await axios.post('https://oticaamazoniabackend.vercel.app/
+
+api/users/register', { name, email, password });
             console.log(response.data);
             // Redirecione ou mostre mensagem de sucesso
         } catch (error) {
@@ -123,7 +127,7 @@ const RegisterUser = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-pastel-pink">
+        <div className="flex justify-center items-center min-h-screen bg-amazon-green">
             <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
                 <h2 className="text-2xl font-bold mb-4 text-black">Cadastro de Usuário</h2>
                 <input
@@ -170,7 +174,9 @@ const RegisterClient = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://zoe-be.vercel.app/api/clients', { name, email });
+            const response = await axios.post('https://oticaamazoniabackend.vercel.app/
+
+api/clients', { name, email });
             console.log(response.data);
             // Redirecione ou mostre mensagem de sucesso
         } catch (error) {
@@ -179,7 +185,7 @@ const RegisterClient = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-pastel-pink">
+        <div className="flex justify-center items-center min-h-screen bg-amazon-green">
             <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
                 <h2 className="text-2xl font-bold mb-4 text-black">Cadastro de Cliente</h2>
                 <input
@@ -220,7 +226,9 @@ const RegisterPurchase = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://zoe-be.vercel.app/api/purchases', { clientId, product, amount });
+            const response = await axios.post('https://oticaamazoniabackend.vercel.app/
+
+api/purchases', { clientId, product, amount });
             console.log(response.data);
             // Redirecione ou mostre mensagem de sucesso
         } catch (error) {
@@ -229,7 +237,7 @@ const RegisterPurchase = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-pastel-pink">
+        <div className="flex justify-center items-center min-h-screen bg-amazon-green">
             <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
                 <h2 className="text-2xl font-bold mb-4 text-black">Cadastro de Compra</h2>
                 <input
@@ -275,7 +283,9 @@ jsx
         useEffect(() => {
             const fetchClients = async () => {
                 try {
-                    const response = await axios.get(`https://zoe-be.vercel.app/api/clients?status=${status}`);
+                    const response = await axios.get(`https://oticaamazoniabackend.vercel.app/
+
+api/clients?status=${status}`);
                     setClients(response.data);
                 } catch (error) {
                     console.error(error);
@@ -285,7 +295,7 @@ jsx
         }, [status]);
 
         return (
-            <div className="flex justify-center items-center min-h-screen bg-pastel-pink">
+            <div className="flex justify-center items-center min-h-screen bg-amazon-green">
                 <div className="bg-white p-6 rounded shadow-md w-full max-w-md">
                     <h2 className="text-2xl font-bold mb-4 text-black">
                         Clientes {status === 'inadimplente' ? 'Inadimplentes' : 'Que Pagam Correto'}

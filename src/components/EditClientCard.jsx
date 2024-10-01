@@ -22,8 +22,8 @@ const EditClientCard = ({ client, onSave, onCancel }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center">
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl text-pink-200 mb-4">Editar Cliente</h2>
+      <div className="bg-green-800 p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl text-white mb-4">Editar Cliente</h2>
         <div className="mb-4">
           <label className="block text-gray-300 mb-2">Nome</label>
           <input
@@ -83,13 +83,13 @@ const EditClientCard = ({ client, onSave, onCancel }) => {
         <div className="flex justify-end">
           <button
             onClick={onCancel}
-            className="bg-gray-600 text-white px-4 py-2 rounded mr-2 hover:bg-gray-500 transition-colors duration-200"
+            className="bg-green-600 text-white px-4 py-2 rounded mr-2 hover:bg-green-500 transition-colors duration-200"
           >
             Cancelar
           </button>
           <button
             onClick={handleSave}
-            className="bg-pink-400 text-white px-4 py-2 rounded hover:bg-pink-300 transition-colors duration-200"
+            className="bg-green-400 text-white px-4 py-2 rounded hover:bg-green-300 transition-colors duration-200"
           >
             Salvar
           </button>
